@@ -4,11 +4,33 @@ const bwipjs = require('bwip-js');
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Endpoint para generar etiqueta
 app.post('/generar-etiqueta', async (req, res) => {
   try {
-    const { codigo, nombre, sku } = req.body;
+    // Decodificar y limpiar valores
+    let codigo = req.body.codigo || '';
+    let nombre = req.body.nombre || '';
+    let sku = req.body.sku || '';
+    
+    try {
+      codigo = decodeURIComponent(codigo).trim();
+    } catch(e) {
+      codigo = codigo.trim();
+    }
+    
+    try {
+      nombre = decodeURIComponent(nombre).trim();
+    } catch(e) {
+      nombre = nombre.trim();
+    }
+    
+    try {
+      sku = decodeURIComponent(sku).trim();
+    } catch(e) {
+      sku = sku.trim();
+    }
     
     if (!codigo || !nombre) {
       return res.status(400).json({ error: 'Faltan campos: codigo y nombre son requeridos' });
@@ -31,7 +53,7 @@ app.post('/generar-etiqueta', async (req, res) => {
 
     // Configurar respuesta
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${nombre}.pdf"`);
+    res.setHeader('Content-Disposition', 'attachment; filename="etiqueta.pdf"');
     
     doc.pipe(res);
 
