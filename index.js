@@ -51,9 +51,12 @@ app.post('/generar-etiqueta', async (req, res) => {
       margins: { top: 8, bottom: 8, left: 8, right: 8 }
     });
 
+    // Limpiar nombre para filename (quitar caracteres especiales)
+    const safeFilename = nombre.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s\-]/g, '').substring(0, 100);
+
     // Configurar respuesta
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename="etiqueta.pdf"');
+    res.setHeader('Content-Disposition', `attachment; filename="${safeFilename}.pdf"`);
     
     doc.pipe(res);
 
