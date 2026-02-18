@@ -71,10 +71,10 @@ app.post('/generar-etiqueta', async (req, res) => {
     doc.fontSize(6).font('Helvetica-Bold');
     doc.text(nombre, 0, 64, { align: 'center', width: 170, lineGap: 1 });
 
-    // SKU
+    // SKU de origen
     if (sku) {
       doc.fontSize(7).font('Helvetica-Bold');
-      doc.text('Cod. Universal: ' + sku, 0, 95, { align: 'center', width: 170 });
+      doc.text('SKU de origen: ' + sku, 0, 95, { align: 'center', width: 170 });
     }
 
     doc.end();
