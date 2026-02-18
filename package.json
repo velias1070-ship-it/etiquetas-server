@@ -1,0 +1,17 @@
+{
+  "name": "etiquetas-barcode-server",
+  "version": "1.0.0",
+  "description": "Servidor para generar etiquetas con código de barras",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pdfkit": "^0.13.0",
+    "bwip-js": "^4.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
